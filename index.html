@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ProRes - Resume Builder</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+</head>
+<body class="light">
+  <div class="container">
+
+    <!-- 🌙 Theme Toggle -->
+    <div class="theme-toggle">
+      <button id="toggleTheme">🌙</button>
+    </div>
+
+    <!-- 📊 Progress Bar -->
+    <div class="progress-bar">
+      <div id="progress" class="progress"></div>
+    </div>
+
+    <!-- ❓ Question Box -->
+    <div id="questionBox">
+      <h2 id="questionText"></h2>
+
+      <input type="text" id="answerInput" placeholder="Type your answer..." />
+      <input type="file" id="imageInput" accept="image/*" style="display: none;" />
+
+      <div class="button-group">
+        <button id="backBtn" disabled>⬅ Back</button>
+        <button id="nextBtn">Next ➡</button>
+      </div>
+    </div>
+
+    <!-- ✅ Resume Preview + Action Buttons -->
+    <div id="resumeSection" style="display: none;">
+      <div class="action-buttons">
+        <button id="downloadBtn">⬇ Download Resume</button>
+        <button id="editBtn">✏️ Edit Info</button>
+        <button id="clearBtn">🗑️ Clear Data</button>
+      </div>
+      <div id="resumePreview" class="resume"></div>
+    </div>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
