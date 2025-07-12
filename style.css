@@ -1,197 +1,615 @@
-/* ========== GENERAL STYLING ========== */
+/*
+ * Resume Builder Styles
+ *
+ * Designed for a clean, modern, and attractive user experience.
+ * Incorporates light and dark modes with smooth transitions.
+ */
+
+/* --- 1. CSS Reset & Global Box Sizing --- */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* --- 2. Root Variables for Theming --- */
+:root {
+    /* Light Theme Colors (for UI elements outside the resume) */
+    --clr-bg-light: hsl(210, 30%, 98%);     /* Very light blue-gray background */
+    --clr-text-light: hsl(210, 40%, 15%);   /* Dark blue-gray text */
+    --clr-accent-light: hsl(200, 80%, 45%); /* Vibrant blue accent */
+    --clr-accent-darker-light: hsl(200, 80%, 35%); /* Darker accent for hover */
+    --clr-border-light: hsl(210, 15%, 88%); /* Light gray border */
+    --clr-card-bg-light: #ffffff;           /* Pure white card background */
+    --clr-shadow-light: rgba(0, 0, 0, 0.08); /* Subtle shadow */
+    --clr-placeholder-light: hsl(210, 10%, 55%); /* Placeholder text color */
+    --clr-error: hsl(0, 80%, 60%);          /* Error red */
+
+    /* Dark Theme Colors (for UI elements outside the resume) */
+    --clr-bg-dark: hsl(210, 15%, 10%);      /* Dark blue-gray background */
+    --clr-text-dark: hsl(210, 20%, 85%);    /* Light blue-gray text */
+    --clr-accent-dark: hsl(200, 80%, 55%);  /* Brighter blue accent for dark mode */
+    --clr-accent-darker-dark: hsl(200, 80%, 45%); /* Darker accent for hover */
+    --clr-border-dark: hsl(210, 10%, 25%);  /* Dark gray border */
+    --clr-card-bg-dark: hsl(210, 15%, 17%); /* Darker card background */
+    --clr-shadow-dark: rgba(0, 0, 0, 0.3);  /* More prominent shadow */
+    --clr-placeholder-dark: hsl(210, 10%, 45%); /* Placeholder text color */
+
+    /* General Typography & Spacing */
+    --font-primary: 'Inter', sans-serif;
+    --font-secondary: 'Roboto', sans-serif;
+    --spacing-xs: 4px;
+    --spacing-sm: 8px;
+    --spacing-md: 16px;
+    --spacing-lg: 24px;
+    --spacing-xl: 32px;
+    --border-radius: 8px;
+    --transition-speed: 0.2s;
+}
+
+/* --- 3. Base Body & Theming --- */
 body {
-  font-family: 'Segoe UI', sans-serif;
-  margin: 0;
-  padding: 0;
-  transition: background 0.3s, color 0.3s;
-  line-height: 1.6;
+    font-family: var(--font-primary);
+    line-height: 1.6;
+    color: var(--clr-text-light); /* UI text color */
+    background-color: var(--clr-bg-light); /* UI background color */
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Align to top */
+    min-height: 100vh;
+    padding: var(--spacing-xl);
+    transition: background-color var(--transition-speed) ease-in-out, color var(--transition-speed) ease-in-out;
 }
 
-body.light {
-  background-color: #fdfdfd;
-  color: #222;
-}
-
+/* Dark Mode Specific Styles for UI elements */
 body.dark {
-  background-color: #1e1e1e;
-  color: #f1f1f1;
+    color: var(--clr-text-dark);
+    background-color: var(--clr-bg-dark);
 }
 
-.container {
-  max-width: 800px;
-  margin: 40px auto;
-  padding: 20px;
+body.dark .container,
+body.dark #questionBox {
+    background-color: var(--clr-card-bg-dark);
+    box-shadow: 0 10px 30px var(--clr-shadow-dark);
+    border: 1px solid var(--clr-border-dark);
 }
 
-/* ========== THEME TOGGLE ========== */
-.theme-toggle {
-  text-align: right;
+body.dark input[type="text"],
+body.dark input[type="file"],
+body.dark select {
+    background-color: var(--clr-bg-dark);
+    border-color: var(--clr-border-dark);
+    color: var(--clr-text-dark);
 }
 
-.theme-toggle button {
-  background: transparent;
-  border: none;
-  font-size: 1.5rem;
-  cursor: pointer;
+body.dark input::placeholder {
+    color: var(--clr-placeholder-dark);
 }
 
-/* ========== PROGRESS BAR ========== */
-.progress-bar {
-  background: #ccc;
-  height: 10px;
-  width: 100%;
-  border-radius: 10px;
-  margin: 20px 0;
-  overflow: hidden;
+body.dark button:not(#clearBtn):not(#toggleTheme) {
+    background-color: var(--clr-accent-dark);
 }
 
-.progress {
-  background: #4caf50;
-  height: 100%;
-  width: 0%;
-  transition: width 0.3s ease-in-out;
+body.dark button:not(#clearBtn):not(#toggleTheme):hover {
+    background-color: var(--clr-accent-darker-dark);
 }
 
-/* ========== QUESTION BOX ========== */
-#questionBox h2 {
-  margin: 10px 0;
+body.dark .theme-toggle #toggleTheme {
+    background-color: var(--clr-accent-dark);
 }
 
-#answerInput,
-#nextBtn,
-#backBtn {
-  width: 100%;
-  padding: 10px;
-  margin: 10px 0;
-  font-size: 16px;
+body.dark .theme-toggle #toggleTheme:hover {
+    background-color: var(--clr-accent-darker-dark);
 }
 
-#answerInput {
-  box-sizing: border-box;
-}
 
-.button-group {
-  display: flex;
-  justify-content: space-between;
-  gap: 10px;
-}
-
-#nextBtn,
-#backBtn {
-  background: #4caf50;
-  color: white;
-  border: none;
-  cursor: pointer;
-  flex: 1;
-}
-
-#backBtn[disabled] {
-  background: #888;
-  cursor: not-allowed;
-}
-
-#nextBtn:hover,
-#backBtn:hover:not([disabled]) {
-  background: #43a047;
-}
-
-/* ========== RESUME PREVIEW ========== */
-#resumeSection {
-  margin-top: 30px;
-}
-
-.action-buttons {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 20px;
-  flex-wrap: wrap;
-}
-
-.action-buttons button {
-  background-color: #2196f3;
-  color: white;
-  border: none;
-  padding: 10px 16px;
-  cursor: pointer;
-  font-size: 14px;
-  border-radius: 4px;
-  transition: background 0.2s ease;
-}
-
-.action-buttons button:hover {
-  background-color: #1976d2;
-}
-
+/* --- Resume Specific Styles (Monochrome) --- */
+/* The .resume section itself should always appear monochrome */
 .resume {
-  background: white;
-  color: black;
-  padding: 30px;
-  border: 1px solid #ddd;
-  font-family: 'Segoe UI', sans-serif;
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
-  max-width: 800px;
-  margin: 0 auto;
+    background-color: #ffffff; /* Always white background for the resume document */
+    padding: 40px 50px; /* Generous padding for a clean document look */
+    box-shadow: none;
+    border: none;
+    line-height: 1.5; /* Increased line-height for better readability */
+    color: #000000; /* All text within resume is black */
+    font-family: var(--font-primary);
+    min-height: 297mm; /* A4 height for better print simulation */
+    max-width: 210mm; /* A4 width for better print simulation */
+    margin: var(--spacing-md) auto;
+    outline: none;
+    cursor: text;
 }
 
-/* ========== PROFILE IMAGE (PASSPORT STYLE) ========== */
-.resume .profile-img {
-  float: left;
-  width: 100px;
-  height: 120px;
-  object-fit: cover;
-  border-radius: 6px;
-  border: 2px solid #333;
-  margin-right: 20px;
-}
-
-/* ========== RESUME SECTIONS ========== */
 .resume h1 {
-  font-size: 28px;
-  margin-bottom: 5px;
+    /* clear: both; - Removed to allow alignment next to image */
+    font-size: 2.2em;
+    margin-bottom: var(--spacing-sm);
+    text-align: center;
+    color: #000000; /* Black for main name */
+    font-weight: 700;
+    line-height: 1.2;
 }
 
 .resume h2 {
-  margin-top: 30px;
-  margin-bottom: 10px;
-  font-size: 20px;
-  border-bottom: 1px solid #999;
-  padding-bottom: 5px;
+    font-size: 1.3em;
+    margin: var(--spacing-lg) 0 var(--spacing-sm);
+    border-bottom: 1px dashed #cccccc; /* Light gray dashed line */
+    padding-bottom: var(--spacing-xs);
+    font-weight: 600;
+    color: #000000; /* Black for section titles */
+}
+
+.resume h3 {
+    font-size: 1.1em;
+    margin-top: 0;
+    margin-bottom: var(--spacing-xs);
+    font-weight: 600;
+    color: #000000; /* Black for sub-titles */
 }
 
 .resume p {
-  margin: 5px 0;
+    margin-bottom: var(--spacing-md); /* Increased margin-bottom for paragraphs */
+    font-size: 0.95em;
+    color: #000000; /* Black for paragraphs */
 }
 
 .resume ul {
-  margin: 5px 0 15px 20px;
-  padding: 0;
-  list-style-type: disc;
+    margin-left: var(--spacing-lg);
+    list-style-type: disc;
+    margin-bottom: var(--spacing-md);
 }
 
-.resume ul li {
-  margin-bottom: 4px;
+.resume li {
+    margin-bottom: var(--spacing-sm); /* Increased margin-bottom for list items */
+    font-size: 0.95em;
+    color: #000000; /* Black for list items */
 }
 
-/* ========== PRINT STYLING ========== */
-@media print {
-  body {
-    background: white;
-    color: black;
-  }
+.resume a {
+    color: #000000; /* Black for links */
+    text-decoration: underline; /* Always underline links for visibility without color */
+}
 
-  .theme-toggle,
-  .progress-bar,
-  #questionBox,
-  .action-buttons {
-    display: none !important;
-  }
+.resume a:hover {
+    color: #333333; /* Slightly darker black on hover */
+}
 
-  #resumePreview {
-    margin-top: 0;
-  }
+.resume .date-location {
+    font-size: 0.85em;
+    color: #666666; /* Muted gray for dates/locations */
+}
 
-  .resume {
-    box-shadow: none;
+/* Section Separators (Dashed Line) */
+.resume > p:first-of-type,
+.resume > p:last-of-type,
+.resume .clamp-3,
+.resume .education-item:last-of-type,
+.resume .experience-item:last-of-type,
+.resume .project-item:last-of-type,
+.resume .cert-item:last-of-type,
+.resume ul:last-of-type,
+.resume .section-header + p {
+    padding-bottom: var(--spacing-md);
+    margin-bottom: var(--spacing-md);
+    border-bottom: 1px dashed #cccccc; /* Light gray dashed line */
+}
+/* Ensure the last section doesn't have a border */
+.resume #resumeContent > div:last-child,
+.resume #resumeContent > p:last-of-type,
+.resume #resumeContent > ul:last-of-type {
+    border-bottom: none !important;
+    padding-bottom: 0 !important;
+    margin-bottom: 0 !important;
+}
+
+/* Profile Image - Passport Size (Rectangular) & Design */
+.profile-wrap {
+    width: 100px;  /* Increased width for a slightly bigger image */
+    height: 125px; /* Increased height to maintain aspect ratio */
+    border: 1px solid #cccccc; /* Light gray border */
+    border-radius: 0; /* Make it rectangular */
+    overflow: hidden;
+    flex-shrink: 0;
+    /* clear: both; - Removed, as float handles its own flow without explicitly clearing following blocks */
+}
+
+.profile-wrap.right {
+    float: right;
+    margin: 0 0 var(--spacing-md) var(--spacing-md);
+}
+
+.profile-wrap.left {
+    float: left;
+    margin: 0 var(--spacing-md) var(--spacing-md) 0;
+}
+
+.profile-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures image fills the space */
+    display: block;
+}
+
+/* --- UI Controls outside Resume (Maintain color/theme) --- */
+.container {
+    background-color: var(--clr-card-bg-light);
+    border-radius: var(--border-radius);
+    box-shadow: 0 8px 25px var(--clr-shadow-light);
+    padding: var(--spacing-xl);
+    max-width: 800px;
+    width: 100%;
+    margin: var(--spacing-xl) auto;
+    border: 1px solid var(--clr-border-light);
+    transition: background-color var(--transition-speed) ease-in-out, box-shadow var(--transition-speed) ease-in-out, border-color var(--transition-speed) ease-in-out;
+}
+
+.theme-toggle {
+    text-align: right;
+    margin-bottom: var(--spacing-md);
+}
+
+#toggleTheme {
+    background-color: var(--clr-accent-light);
+    color: #fff;
+    padding: var(--spacing-sm) var(--spacing-md);
     border: none;
-  }
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: background-color var(--transition-speed) ease;
+}
+
+#toggleTheme:hover {
+    background-color: var(--clr-accent-darker-light);
+}
+
+#questionBox {
+    text-align: center;
+    padding: var(--spacing-lg);
+    background-color: var(--clr-card-bg-light);
+    border-radius: var(--border-radius);
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+}
+
+#questionText {
+    font-size: 1.4em;
+    margin-bottom: var(--spacing-lg);
+    font-weight: 600;
+}
+
+input[type="text"],
+input[type="file"],
+select {
+    width: calc(100% - 2 * var(--spacing-md));
+    padding: var(--spacing-sm) var(--spacing-md);
+    margin-bottom: var(--spacing-md);
+    border: 1px solid var(--clr-border-light);
+    border-radius: var(--border-radius);
+    font-size: 1em;
+    color: var(--clr-text-light);
+    background-color: var(--clr-bg-light);
+    transition: border-color var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+}
+
+input[type="text"]:focus,
+input[type="file"]:focus,
+select:focus {
+    outline: none;
+    border-color: var(--clr-accent-light);
+    box-shadow: 0 0 0 3px rgba(var(--clr-accent-light), 0.2);
+}
+
+input::placeholder {
+    color: var(--clr-placeholder-light);
+}
+
+.button-group {
+    display: flex;
+    justify-content: center;
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-lg);
+}
+
+button {
+    padding: var(--spacing-sm) var(--spacing-lg);
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: 600;
+    transition: background-color var(--transition-speed) ease, transform 0.1s ease;
+}
+
+button:active {
+    transform: translateY(1px);
+}
+
+#nextBtn,
+#backBtn,
+#openNewTab,
+#mobilePrint,
+#editResumeBtn {
+    background-color: var(--clr-accent-light);
+    color: #fff;
+}
+
+#nextBtn:hover,
+#openNewTab:hover,
+#mobilePrint:hover,
+#editResumeBtn:hover {
+    background-color: var(--clr-accent-darker-light);
+}
+
+#backBtn {
+    background-color: var(--clr-border-light);
+    color: var(--clr-text-light);
+}
+
+#backBtn:hover {
+    background-color: hsl(210, 10%, 80%);
+}
+
+#backBtn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    background-color: var(--clr-border-light);
+    color: var(--clr-text-light);
+}
+
+#clearBtn {
+    background-color: var(--clr-error);
+    color: #fff;
+    margin-top: var(--spacing-lg);
+}
+
+#clearBtn:hover {
+    background-color: hsl(0, 70%, 50%);
+}
+
+.progress-bar {
+    width: 100%;
+    height: 8px;
+    background-color: var(--clr-border-light);
+    border-radius: 4px;
+    margin-bottom: var(--spacing-xl);
+    overflow: hidden;
+}
+
+.progress {
+    height: 100%;
+    width: 0%;
+    background-color: var(--clr-accent-light);
+    border-radius: 4px;
+    transition: width 0.4s ease-out;
+}
+
+#resumeSection {
+    padding: var(--spacing-md);
+}
+
+.custom-controls {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
+    background-color: var(--clr-bg-light);
+    padding: var(--spacing-sm);
+    border-radius: var(--border-radius);
+    border: 1px solid var(--clr-border-light);
+}
+
+body.dark .custom-controls {
+    background-color: var(--clr-card-bg-dark);
+    border-color: var(--clr-border-dark);
+}
+body.dark .custom-controls label,
+body.dark .custom-controls input[type="range"] + span {
+    color: var(--clr-text-dark);
+}
+body.dark .custom-controls select {
+    background-color: var(--clr-bg-dark);
+    color: var(--clr-text-dark);
+    border-color: var(--clr-border-dark);
+}
+
+.custom-controls label {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    font-size: 0.9em;
+}
+
+.custom-controls select,
+.custom-controls input[type="range"] {
+    margin-bottom: 0;
+    width: auto;
+    min-width: 100px;
+}
+
+#lineHeightValue {
+    min-width: 30px;
+    text-align: center;
+    font-weight: 600;
+}
+
+/* Clamping for text overflow (Descriptions, Summary, Achievements) */
+.clamp-1, .clamp-2, .clamp-3 {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+.clamp-1 {-webkit-line-clamp: 1; line-clamp: 1;}
+.clamp-2 {-webkit-line-clamp: 2; line-clamp: 2;}
+.clamp-3 {-webkit-line-clamp: 3; line-clamp: 3;}
+
+
+/* List Display Options (radio buttons for skills/hobbies/languages) */
+.list-display-options {
+    margin-top: var(--spacing-sm);
+    margin-bottom: var(--spacing-md);
+    display: flex;
+    justify-content: center;
+    gap: var(--spacing-lg);
+    font-size: 0.9em;
+    color: var(--clr-text-light); /* UI text color */
+    background-color: var(--clr-bg-light);
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--border-radius);
+    border: 1px solid var(--clr-border-light);
+}
+
+body.dark .list-display-options {
+    background-color: var(--clr-card-bg-dark);
+    border-color: var(--clr-border-dark);
+    color: var(--clr-text-dark);
+}
+
+.list-display-options label {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    cursor: pointer;
+}
+
+.list-display-options input[type="radio"] {
+    cursor: pointer;
+    margin-bottom: 0;
+}
+
+.action-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-xl);
+}
+
+/* --- 10. Print Media Queries --- */
+@media print {
+    body {
+        padding: 0;
+        margin: 0;
+        min-height: auto;
+        background-color: #fff !important;
+        color: #000 !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+        display: block;
+    }
+
+    /* Hide all UI elements */
+    .container,
+    #questionBox,
+    .theme-toggle,
+    .progress-bar,
+    .button-group,
+    #clearBtn,
+    .custom-controls,
+    .action-buttons,
+    .list-display-options,
+    #profilePicAlignmentOptions {
+        display: none !important;
+    }
+
+    .resume {
+        width: 210mm;
+        min-height: 297mm;
+        margin: 0;
+        box-shadow: none !important;
+        border: none !important;
+        padding: 20mm;
+        background-color: #fff !important;
+        color: #000 !important;
+        font-family: 'Times New Roman', serif !important;
+        line-height: 1.2 !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+
+    .resume * {
+        font-family: 'Times New Roman', serif !important;
+        line-height: 1.2 !important;
+        color: #000 !important; /* Ensure all text is black */
+    }
+
+    .resume h1, .resume h2, .resume h3, .resume p, .resume ul, .resume li, .resume span {
+        color: #000 !important;
+    }
+
+    .resume h2 {
+        border-bottom-color: #ccc !important;
+    }
+    .resume a {
+        color: #000 !important;
+        text-decoration: underline !important; /* Ensure underline on print */
+    }
+    .resume .profile-wrap {
+        width: 100px !important;  /* Force bigger size in print */
+        height: 125px !important; /* Force bigger size in print */
+        border-radius: 0 !important; /* Force rectangular in print */
+        border-color: #ccc !important;
+    }
+}
+
+
+/* --- 11. Responsive Adjustments --- */
+@media (max-width: 768px) {
+    body {
+        padding: var(--spacing-lg);
+    }
+    .container {
+        padding: var(--spacing-lg);
+    }
+    #questionText {
+        font-size: 1.2em;
+    }
+    button {
+        padding: var(--spacing-sm) var(--spacing-md);
+        font-size: 0.9em;
+    }
+    .profile-wrap.left,
+    .profile-wrap.right {
+        float: none;
+        margin: 0 auto var(--spacing-md) auto;
+    }
+    .resume h1 {
+        font-size: 1.8em;
+    }
+    .resume h2 {
+        font-size: 1.2em;
+    }
+    .item-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .date-location {
+        margin-left: 0;
+        text-align: left;
+        margin-top: var(--spacing-xs);
+    }
+    .list-display-options {
+        flex-direction: column;
+        gap: var(--spacing-sm);
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: var(--spacing-md);
+    }
+    #questionText {
+        font-size: 1em;
+    }
+    .button-group {
+        flex-direction: column;
+    }
+    button {
+        width: 100%;
+    }
+    .resume {
+        padding: var(--spacing-lg);
+    }
 }
