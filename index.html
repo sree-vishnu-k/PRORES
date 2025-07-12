@@ -1,50 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>ProRes - Resume Builder</title>
-  <link rel="stylesheet" href="style.css" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Builder</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Roboto&family=Lato:wght@400;700&family=Georgia&family=Times+New+Roman&family=Calibri&display=swap" rel="stylesheet">
 </head>
 <body class="light">
-  <div class="container">
+    <div class="container">
+        <div class="theme-toggle">
+            <button id="toggleTheme">Toggle Dark Mode</button>
+        </div>
 
-    <!-- 🌙 Theme Toggle -->
-    <div class="theme-toggle">
-      <button id="toggleTheme">🌙</button>
+        <div id="questionBox">
+            <div class="progress-bar">
+                <div class="progress" id="progress"></div>
+            </div>
+            <p id="questionText"></p>
+            <input type="text" id="answerInput" placeholder="Type your answer here...">
+            <input type="file" id="imageInput" accept="image/*" style="display: none;">
+            <div class="button-group">
+                <button id="backBtn">Back</button>
+                <button id="nextBtn">Next</button>
+            </div>
+            <div style="margin-top: 15px; text-align: center;">
+                <button id="clearBtn" style="background: #dc2626;">Clear All Data</button>
+            </div>
+        </div>
+
+        <div id="resumeSection" style="display: none;">
+            <div class="custom-controls">
+                <label>
+                    Font Family:
+                    <select id="fontFamilyControl">
+                        <option value="Inter, sans-serif">Inter</option>
+                        <option value="Roboto, sans-serif">Roboto</option>
+                        <option value="Lato, sans-serif">Lato</option>
+                        <option value="Georgia, serif">Georgia</option>
+                        <option value="'Times New Roman', serif">Times New Roman</option>
+                        <option value="Calibri, sans-serif">Calibri</option>
+                    </select>
+                </label>
+                <label>
+                    Line Spacing:
+                    <input type="range" id="lineHeightControl" min="1.0" max="2.0" step="0.05" value="1.15">
+                    <span id="lineHeightValue">1.15</span>
+                </label>
+            </div>
+
+            <div class="resume" id="resumePreview">
+                </div>
+
+            <div class="action-buttons">
+                <button id="openNewTab">Open in New Tab</button>
+                <button id="mobilePrint">Print Resume</button>
+                <button id="editResumeBtn">Edit Resume</button>
+            </div>
+        </div>
     </div>
 
-    <!-- 📊 Progress Bar -->
-    <div class="progress-bar">
-      <div id="progress" class="progress"></div>
-    </div>
-
-    <!-- ❓ Question Box -->
-    <div id="questionBox">
-      <h2 id="questionText"></h2>
-
-      <input type="text" id="answerInput" placeholder="Type your answer..." />
-      <input type="file" id="imageInput" accept="image/*" style="display: none;" />
-
-      <div class="button-group">
-        <button id="backBtn" disabled>⬅ Back</button>
-        <button id="nextBtn">Next ➡</button>
-      </div>
-    </div>
-
-    <!-- ✅ Resume Preview + Action Buttons -->
-    <div id="resumeSection" style="display: none;">
-      <div class="action-buttons">
-        <button id="downloadBtn">⬇ Download Resume</button>
-        <button id="editBtn">✏️ Edit Info</button>
-        <button id="clearBtn">🗑️ Clear Data</button>
-      </div>
-      <div id="resumePreview" class="resume"></div>
-    </div>
-
-  </div>
-
-  <script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
